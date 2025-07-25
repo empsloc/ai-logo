@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import LogoTitle from "./_components/LogoTitle";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -8,6 +8,7 @@ import LogoColorPallete from "./_components/LogoColorPallete";
 import LogoDesigns from "./_components/LogoDesigns";
 import LogoIdea from "./_components/LogoIdea";
 import PricingModel from "./_components/PricingModel";
+import LoadingSpinner from "./_components/LoadingSpinner";
 
 function CreateLogo() {
   const [step, setStep] = useState(1);
@@ -22,10 +23,12 @@ function CreateLogo() {
   return (
     <div className="mt-28 p-10 border rounded-xl 2xl:mx-72">
       {step == 1 ? (
+        <Suspense fallback={<LoadingSpinner />}>
         <LogoTitle
           onHandleInputChange={(v: any) => onHandleInputChange("title", v)}
           formData={formData}
         />
+        </Suspense>
       ) : step == 2 ? (
         <LogoDesc onHandleInputChange={(v: any) => onHandleInputChange("desc", v)} formData={formData} />
       ) : step == 3 ? (
